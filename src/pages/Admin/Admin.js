@@ -2,7 +2,7 @@ import React from "react";
 
 function Admin() {
   return (
-    <div>
+    <div style={{ height: "70vh" }}>
       <h1>Estamos en Admin</h1>
     </div>
   );
