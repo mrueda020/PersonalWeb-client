@@ -7,7 +7,6 @@ function App() {
     <div className="app">
       <Router>
         <Switch>
-          Header...
           {routes.map((route, index) => {
             return (
               <RouteWithSubRoutes key={index} {...route}></RouteWithSubRoutes>
