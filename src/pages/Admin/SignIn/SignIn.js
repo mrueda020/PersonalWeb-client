@@ -14,10 +14,10 @@ function SignIn() {
         </h1>
         <div className="sign-in__content-tabs">
           <Tabs type="card">
-            <TabPane key="1" tab={<span>Entrar</span>}>
+            <TabPane key="1" tab={<span>Enter</span>}>
               Login Form
             </TabPane>
-            <TabPane key="2" tab={<span>Registrarse</span>}>
+            <TabPane key="2" tab={<span>Resgister</span>}>
               <RegisterForm></RegisterForm>
             </TabPane>
           </Tabs>

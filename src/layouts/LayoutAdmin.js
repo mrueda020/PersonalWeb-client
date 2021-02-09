@@ -35,7 +35,7 @@ function LayoutAdmin(props) {
             />
           </Header>
           <Content className="layout-admin__content">
-            <LoadRoutes routes={routes} />
+            {/* <LoadRoutes routes={routes} /> */}
           </Content>
           <Footer className="layout-admin__footer"> Footer </Footer>
         </Layout>
