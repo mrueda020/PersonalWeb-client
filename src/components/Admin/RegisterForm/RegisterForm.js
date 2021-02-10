@@ -5,6 +5,7 @@ import {
   emailValidation,
   minLengthValidation,
 } from "../../../utils/formValidation";
+import { signUpApi } from "../../../api/user";
 import "./RegisterForm.scss";
 
 function RegisterForm() {
@@ -24,7 +25,7 @@ function RegisterForm() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     // e.preventDefault();
     const { email, password, repeatPassword } = formValid;
     const passwordVal = user.password;
@@ -35,8 +36,16 @@ function RegisterForm() {
     } else {
       if (passwordVal !== repeatPasswordVal) {
         notification["error"]({ message: "Passwords must match!" });
+      } else {
+        const result = await signUpApi(user);
+        if (result.ok) {
+          notification["success"]({ message: result.message });
+        } else {
+          notification["error"]({ message: result.message });
+        }
       }
     }
+    resetForm();
   };
 
   const inputValidation = (e) => {
@@ -54,6 +63,16 @@ function RegisterForm() {
         [name]: minLengthValidation(e.target, 8),
       });
     }
+  };
+
+  const resetForm = () => {
+    const input = document.getElementsByTagName("input");
+    for (let i = 0; i < input.length; i++) {
+      input[i].classList.remove("success");
+      input[i].classList.remove("error");
+    }
+    setUser({ email: "", password: "", repeatPassword: "" });
+    setFormValid({ email: false, password: false, repeatPassword: false });
   };
 
   return (
