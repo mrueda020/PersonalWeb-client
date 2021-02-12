@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../../../assets/img/png/logo192.png";
 import RegisterForm from "../../../components/Admin/RegisterForm";
+import LoginForm from "../../../components/Admin/LoginForm";
 import { Layout, Tabs } from "antd";
 import "./SignIn.scss";
 function SignIn() {
@@ -15,7 +16,7 @@ function SignIn() {
         <div className="sign-in__content-tabs">
           <Tabs type="card">
             <TabPane key="1" tab={<span>Enter</span>}>
-              Login Form
+              <LoginForm></LoginForm>
             </TabPane>
             <TabPane key="2" tab={<span>Resgister</span>}>
               <RegisterForm></RegisterForm>
