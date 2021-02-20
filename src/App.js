@@ -1,20 +1,23 @@
 import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./config/routes";
+import AuthProvider from "./provider/AuthProvider";
 import "./App.scss";
 
 function App() {
   return (
-    <div className="app">
-      <Router>
-        <Switch>
-          {routes.map((route, index) => {
-            return (
-              <RouteWithSubRoutes key={index} {...route}></RouteWithSubRoutes>
-            );
-          })}
-        </Switch>
-      </Router>
-    </div>
+    <AuthProvider>
+      <div className="app">
+        <Router>
+          <Switch>
+            {routes.map((route, index) => {
+              return (
+                <RouteWithSubRoutes key={index} {...route}></RouteWithSubRoutes>
+              );
+            })}
+          </Switch>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 

@@ -27,7 +27,7 @@ function RegisterForm() {
 
   const submitForm = async (e) => {
     // e.preventDefault();
-    const { email, password, repeatPassword } = formValid;
+
     const passwordVal = user.password;
     const repeatPasswordVal = user.repeatPassword;
     const emailVal = user.email;

@@ -23,6 +23,9 @@ function LoginForm() {
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
       notification["success"]({ message: "Login correcto" });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
