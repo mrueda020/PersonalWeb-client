@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 export const getAccesToken = () => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (!accessToken || accessToken === null) {
+  if (!accessToken || accessToken === "null") {
     return null;
   }
   return hasExpired(accessToken) ? null : accessToken;
@@ -12,7 +12,7 @@ export const getAccesToken = () => {
 
 export const getRefeshToken = () => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-  if (!refreshToken || refreshToken === null) {
+  if (!refreshToken || refreshToken === "null") {
     return null;
   }
   return hasExpired(refreshToken) ? null : refreshToken;
@@ -33,7 +33,7 @@ export const refreshAccessToken = (refreshToken) => {
 
   fetch(url, params)
     .then((response) => {
-      if (response.status != 200) {
+      if (response.status !== 200) {
         return null;
       }
       return response.json();

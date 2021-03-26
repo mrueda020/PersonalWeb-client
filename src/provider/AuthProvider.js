@@ -10,6 +10,7 @@ import jwtDecode from "jwt-decode";
 
 function AuthProvider(props) {
   const { children } = props;
+
   const [user, setUser] = useState({
     user: null,
     isLoading: true,

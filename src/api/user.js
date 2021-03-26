@@ -45,3 +45,47 @@ export const signInApi = (data) => {
       return err;
     });
 };
+
+export const getUsers = (token) => {
+  const url = `${basePath}/${apiVersion}/get-users`;
+  const params = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getActiveUsers = (token, status) => {
+  const url = `${basePath}/${apiVersion}/get-active-users?active=${status}`;
+  const params = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
