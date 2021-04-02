@@ -7,10 +7,15 @@ import {
   StopOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
+import Modal from "../../../Modal/";
+import EditUserForm from "../../../Admin/Users/EditUser";
 import "./ListUsers.scss";
 function ListUsers(props) {
   const { activeUsers, inactiveUsers } = props;
   const [viewUsers, setViewUsers] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
   return (
     <div className="list-users">
       <div className="list-users__switch">
@@ -22,17 +27,33 @@ function ListUsers(props) {
       </div>
 
       {viewUsers ? (
-        <ShowActiveUsers activeUsers={activeUsers}></ShowActiveUsers>
+        <ShowActiveUsers
+          activeUsers={activeUsers}
+          setIsVisible={setIsVisible}
+          setModalTitle={setModalTitle}
+          setModalContent={setModalContent}
+        ></ShowActiveUsers>
       ) : (
         <ShowInactiveUsers inactiveUsers={inactiveUsers}></ShowInactiveUsers>
       )}
+      <Modal
+        title={modalTitle}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      >
+        {modalContent}
+      </Modal>
     </div>
   );
 }
 
 const ShowActiveUsers = (props) => {
-  const { activeUsers } = props;
-
+  const { activeUsers, setIsVisible, setModalTitle, setModalContent } = props;
+  const editUser = (user) => {
+    setIsVisible(true);
+    setModalTitle(`Editar usuario`);
+    setModalContent(<EditUserForm user={user} />);
+  };
   return (
     <List
       className="users-active"
@@ -41,7 +62,12 @@ const ShowActiveUsers = (props) => {
       renderItem={(user) => (
         <List.Item
           actions={[
-            <Button type="primary">
+            <Button
+              type="primary"
+              onClick={() => {
+                editUser(user);
+              }}
+            >
               <EditOutlined />
             </Button>,
             <Button type="danger">
