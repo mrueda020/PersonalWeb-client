@@ -1,8 +1,22 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Avatar, Form, Input, Select, Button, Row, Col } from "antd";
+import {
+  Avatar,
+  Form,
+  Input,
+  Select,
+  Button,
+  Row,
+  Col,
+  notification,
+} from "antd";
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
-import { getAvatarApi } from "../../../../api/user";
+import {
+  getAvatarApi,
+  uploadAvatarApi,
+  updateUserApi,
+} from "../../../../api/user";
+import { getAccesToken } from "../../../../api/auth";
 import "./EditUserForm.scss";
 function EditUserForm(props) {
   const { user } = props;
@@ -41,9 +55,48 @@ function EditUserForm(props) {
       setUserData({ ...userData, avatar: avatar.file });
     }
   }, [avatar]);
+
   const updateUser = () => {
-    console.log(userData);
+    const token = getAccesToken();
+    let userUpdate = userData;
+    console.log(userUpdate);
+    if (userUpdate.password || userUpdate.repeatPassword) {
+      if (userUpdate.password !== userUpdate.repeatPassword) {
+        notification["error"]({
+          message: "Las Contraseñas no coinciden",
+        });
+      }
+      return;
+    }
+
+    if (!userUpdate.name || !userUpdate.lastname || !userUpdate.email) {
+      notification["error"]({
+        message: "El nombre, apellidos y email son obligatorios",
+      });
+      return;
+    }
+
+    if (typeof userUpdate.avatar === "object") {
+      console.log("Here");
+      uploadAvatarApi(token, userUpdate.avatar, user._id).then((response) => {
+        userUpdate.avatar = response.avatarName;
+        updateUserApi(token, userUpdate, user._id).then((result) => {
+          console.log(result);
+          notification["success"]({
+            message: "Usuario actualizado",
+          });
+        });
+      });
+    } else {
+      updateUserApi(token, userUpdate, user._id).then((result) => {
+        console.log(result);
+        notification["success"]({
+          message: "Usuario actualizado",
+        });
+      });
+    }
   };
+
   return (
     <div className="edit-user-form">
       <UploadAvatar avatar={avatar} setAvatar={setAvatar} />

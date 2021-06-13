@@ -91,7 +91,7 @@ export const getActiveUsers = (token, status) => {
 };
 
 export const uploadAvatarApi = (token, avatar, userId) => {
-  const url = `${basePath}/${apiVersion}/upload-avatar${userId}`;
+  const url = `${basePath}/${apiVersion}/upload-avatar/${userId}`;
   const formData = new FormData();
   formData.append("avatar", avatar, avatar.name);
   const params = {
@@ -125,7 +125,7 @@ export const getAvatarApi = (avatarName) => {
 };
 
 export const updateUserApi = (token, user, userId) => {
-  const url = `${basePath}/${apiVersion}/upload-avatar/${userId}`;
+  const url = `${basePath}/${apiVersion}/update-user/${userId}`;
   const params = {
     method: "PUT",
     headers: {
