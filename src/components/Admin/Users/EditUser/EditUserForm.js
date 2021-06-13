@@ -19,7 +19,7 @@ import {
 import { getAccesToken } from "../../../../api/auth";
 import "./EditUserForm.scss";
 function EditUserForm(props) {
-  const { user, setIsVisible } = props;
+  const { user, setIsVisible, setReloadUsers } = props;
   const [avatar, setAvatar] = useState(null);
   const [userData, setUserData] = useState({
     name: user.name,
@@ -77,18 +77,18 @@ function EditUserForm(props) {
       uploadAvatarApi(token, userUpdate.avatar, user._id).then((response) => {
         userUpdate.avatar = response.avatarName;
         updateUserApi(token, userUpdate, user._id).then((result) => {
-          console.log(result);
           notification["success"]({
             message: "Usuario actualizado",
           });
+          setReloadUsers(true);
         });
       });
     } else {
       updateUserApi(token, userUpdate, user._id).then((result) => {
-        console.log(result);
         notification["success"]({
           message: "Usuario actualizado",
         });
+        setReloadUsers(true);
       });
     }
     setIsVisible(false);

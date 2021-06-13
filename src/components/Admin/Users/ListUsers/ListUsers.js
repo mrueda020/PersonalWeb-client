@@ -12,7 +12,7 @@ import EditUserForm from "../../../Admin/Users/EditUser";
 import { getAvatarApi } from "../../../../api/user";
 import "./ListUsers.scss";
 function ListUsers(props) {
-  const { activeUsers, inactiveUsers } = props;
+  const { activeUsers, inactiveUsers, setReloadUsers } = props;
   const [viewUsers, setViewUsers] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -33,6 +33,7 @@ function ListUsers(props) {
           setIsVisible={setIsVisible}
           setModalTitle={setModalTitle}
           setModalContent={setModalContent}
+          setReloadUsers={setReloadUsers}
         ></ShowActiveUsers>
       ) : (
         <ShowInactiveUsers inactiveUsers={inactiveUsers}></ShowInactiveUsers>
@@ -49,11 +50,23 @@ function ListUsers(props) {
 }
 
 const ShowActiveUsers = (props) => {
-  const { activeUsers, setIsVisible, setModalTitle, setModalContent } = props;
+  const {
+    activeUsers,
+    setIsVisible,
+    setModalTitle,
+    setModalContent,
+    setReloadUsers,
+  } = props;
   const editUser = (user) => {
     setIsVisible(true);
     setModalTitle(`Editar usuario`);
-    setModalContent(<EditUserForm user={user} setIsVisible={setIsVisible} />);
+    setModalContent(
+      <EditUserForm
+        user={user}
+        setIsVisible={setIsVisible}
+        setReloadUsers={setReloadUsers}
+      />
+    );
   };
   return (
     <List

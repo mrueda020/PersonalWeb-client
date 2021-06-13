@@ -6,6 +6,7 @@ import "./Users.scss";
 function Users() {
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
+  const [reloadUsers, setReloadUsers] = useState(false);
   const token = getAccesToken();
 
   useEffect(() => {
@@ -13,12 +14,14 @@ function Users() {
     getActiveUsers(token, false).then((result) =>
       setInactiveUsers(result.users)
     );
-  }, [token]);
+    setReloadUsers(false);
+  }, [token, reloadUsers]);
   return (
     <div className="users">
       <ListUsers
         activeUsers={activeUsers}
         inactiveUsers={inactiveUsers}
+        setReloadUsers={setReloadUsers}
       ></ListUsers>
     </div>
   );
