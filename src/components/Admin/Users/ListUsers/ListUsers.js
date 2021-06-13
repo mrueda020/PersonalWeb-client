@@ -53,7 +53,7 @@ const ShowActiveUsers = (props) => {
   const editUser = (user) => {
     setIsVisible(true);
     setModalTitle(`Editar usuario`);
-    setModalContent(<EditUserForm user={user} />);
+    setModalContent(<EditUserForm user={user} setIsVisible={setIsVisible} />);
   };
   return (
     <List
@@ -97,7 +97,9 @@ const ShowActiveUser = (props) => {
       ]}
     >
       <List.Item.Meta
-        avatar={<Avatar src={avatar && avatar} />}
+        avatar={
+          <Avatar src={avatar && avatar} icon={!avatar && <UserOutlined />} />
+        }
         title={`${user.name ? user.name : "..."}
             ${user.lastname ? user.lastname : "..."}`}
         description={user.email}
@@ -144,7 +146,9 @@ const ShowInactiveUser = (props) => {
       ]}
     >
       <List.Item.Meta
-        avatar={<Avatar icon={<UserOutlined />} />}
+        avatar={
+          <Avatar src={avatar && avatar} icon={!avatar && <UserOutlined />} />
+        }
         title={`${user.name ? user.name : "..."}
             ${user.lastname ? user.lastname : "..."}`}
         description={user.email}

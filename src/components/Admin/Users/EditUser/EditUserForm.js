@@ -19,7 +19,7 @@ import {
 import { getAccesToken } from "../../../../api/auth";
 import "./EditUserForm.scss";
 function EditUserForm(props) {
-  const { user } = props;
+  const { user, setIsVisible } = props;
   const [avatar, setAvatar] = useState(null);
   const [userData, setUserData] = useState({
     name: user.name,
@@ -27,8 +27,6 @@ function EditUserForm(props) {
     email: user.email,
     role: user.role,
     avatar: user.avatar,
-    password: "",
-    repeatPassword: "",
   });
   useEffect(() => {
     setUserData({
@@ -37,8 +35,6 @@ function EditUserForm(props) {
       email: user.email,
       role: user.role,
       avatar: user.avatar,
-      password: "",
-      repeatPassword: "",
     });
   }, [user]);
 
@@ -95,6 +91,7 @@ function EditUserForm(props) {
         });
       });
     }
+    setIsVisible(false);
   };
 
   return (
