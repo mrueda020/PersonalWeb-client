@@ -61,8 +61,10 @@ function EditUserForm(props) {
         notification["error"]({
           message: "Las Contraseñas no coinciden",
         });
+        return;
+      } else {
+        delete userUpdate.repeatPassword;
       }
-      return;
     }
 
     if (!userUpdate.name || !userUpdate.lastname || !userUpdate.email) {
@@ -92,6 +94,10 @@ function EditUserForm(props) {
       });
     }
     setIsVisible(false);
+
+    setUserData({ ...userData, password: "" });
+    setUserData({ ...userData, repeatPassword: "" });
+    console.log(userData);
   };
 
   return (
@@ -216,6 +222,7 @@ const EditForm = (props) => {
               prefix={<LockOutlined />}
               type="password"
               placeholder="Contraseña"
+              value={userData.password}
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
               }
@@ -223,12 +230,12 @@ const EditForm = (props) => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          {" "}
           <Form.Item>
             <Input
               prefix={<LockOutlined />}
               type="password"
               placeholder="Confirmar Contraseña"
+              value={userData.repeatPassword}
               onChange={(e) =>
                 setUserData({ ...userData, repeatPassword: e.target.value })
               }
